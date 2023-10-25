@@ -1,1 +1,3 @@
-export const foo = 'foo'
+export * from './new'
+export * from './promise'
+export * from './instanceof'
