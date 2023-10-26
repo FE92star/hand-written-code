@@ -1,3 +1,5 @@
 export * from './new'
 export * from './promise'
 export * from './instanceof'
+export * from './debounce'
+export * from './throttle'
