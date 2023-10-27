@@ -1,11 +1,11 @@
-interface TreeNode {
+export interface TreeNode {
   id: string
   title: string
   pid: string
   children?: TreeNode[]
 }
 
-type ListNode = Exclude<TreeNode, 'children'>
+export type ListNode = Exclude<TreeNode, 'children'>
 
 export function transformTree2List(trees: TreeNode[]) {
   let list: ListNode[] = []

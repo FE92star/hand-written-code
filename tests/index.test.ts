@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { myNew, MyPromise, myInstanceof } from '../src'
+import { myNew, MyPromise, myInstanceof, transformTree2List, transformList2Tree, type TreeNode, type ListNode } from '../src'
 import '../src/call'
 
 function Person(this: any, name: string, age: number) {
@@ -31,6 +31,66 @@ const obj = {
   name: 'Bob'
 }
 
+const treeData: TreeNode[] = [
+  {
+    title: 'parent 1',
+    id: '0-0',
+    pid: '0',
+    children: [
+      {
+        title: 'parent 1-0',
+        id: '0-0-0',
+        pid: '0-0',
+        children: [
+          {
+            title: 'leaf',
+            id: '0-0-0-0',
+            pid: '0-0-0'
+          },
+          {
+            title: 'leaf',
+            id: '0-0-0-1',
+            pid: '0-0-0'
+          },
+        ],
+      },
+      {
+        title: 'parent 1-1',
+        id: '0-0-1',
+        pid: '0-0',
+      },
+    ],
+  },
+]
+
+const listData: ListNode[] = [
+  {
+    "id": "0-0",
+    "pid": "0",
+    "title": "parent 1",
+  },
+  {
+    "id": "0-0-0",
+    "pid": "0-0",
+    "title": "parent 1-0",
+  },
+  {
+    "id": "0-0-0-0",
+    "pid": "0-0-0",
+    "title": "leaf",
+  },
+  {
+    "id": "0-0-0-1",
+    "pid": "0-0-0",
+    "title": "leaf",
+  },
+  {
+    "id": "0-0-1",
+    "pid": "0-0",
+    "title": "parent 1-1",
+  },
+]
+
 test('new and instanceof', () => {
   const person = myNew(Person, 'Bob', 31)
 
@@ -49,4 +109,10 @@ test('async', async () => {
   expect(getName.myApply(obj)).toBe('Bob')
 
   expect(getName.myBind(obj)()).toBe('Bob')
+})
+
+test('tree', () => {
+  expect(transformTree2List(treeData)).toMatchSnapshot()
+
+  expect(transformList2Tree(listData)).toMatchSnapshot()
 })

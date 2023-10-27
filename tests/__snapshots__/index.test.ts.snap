@@ -1,0 +1,68 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tree 1`] = `
+[
+  {
+    "id": "0-0",
+    "pid": "0",
+    "title": "parent 1",
+  },
+  {
+    "id": "0-0-0",
+    "pid": "0-0",
+    "title": "parent 1-0",
+  },
+  {
+    "id": "0-0-0-0",
+    "pid": "0-0-0",
+    "title": "leaf",
+  },
+  {
+    "id": "0-0-0-1",
+    "pid": "0-0-0",
+    "title": "leaf",
+  },
+  {
+    "id": "0-0-1",
+    "pid": "0-0",
+    "title": "parent 1-1",
+  },
+]
+`;
+
+exports[`tree 2`] = `
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [],
+            "id": "0-0-0-0",
+            "pid": "0-0-0",
+            "title": "leaf",
+          },
+          {
+            "children": [],
+            "id": "0-0-0-1",
+            "pid": "0-0-0",
+            "title": "leaf",
+          },
+        ],
+        "id": "0-0-0",
+        "pid": "0-0",
+        "title": "parent 1-0",
+      },
+      {
+        "children": [],
+        "id": "0-0-1",
+        "pid": "0-0",
+        "title": "parent 1-1",
+      },
+    ],
+    "id": "0-0",
+    "pid": "0",
+    "title": "parent 1",
+  },
+]
+`;
