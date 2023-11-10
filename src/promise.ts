@@ -58,6 +58,8 @@ export class MyPromise {
         onRejected(this.reason)
       })
     }
+
+    return this
   }
 }
 

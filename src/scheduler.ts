@@ -1,4 +1,4 @@
-export class Scheduler {
+export class PromiseScheduler {
   /** 最大并发数 */
   max = 0
   /** 当前队列中的任务数 */
