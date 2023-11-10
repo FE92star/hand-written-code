@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { myNew, MyPromise, myInstanceof, transformTree2List, transformList2Tree, type TreeNode, type ListNode } from '../src'
+import { myNew, MyPromise, myInstanceof, transformTree2List, transformList2Tree, type TreeNode, type ListNode, toString } from '../src'
 import '../src/call'
 
 function Person(this: any, name: string, age: number) {
@@ -115,4 +115,8 @@ test('tree', () => {
   expect(transformTree2List(treeData)).toMatchSnapshot()
 
   expect(transformList2Tree(listData)).toMatchSnapshot()
+})
+
+test('number', () => {
+  expect(toString(12345678)).toBe('12,345,678')
 })
