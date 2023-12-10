@@ -95,3 +95,16 @@ Promise._all = (iterObj) => {
     })
   })
 }
+
+// @ts-ignore
+Promise._race = (arr) => {
+  return new Promise((resolve, reject) => {
+    for (const item of arr) {
+      Promise.resolve(item).then((res) => {
+        resolve(res)
+      }).catch((err) => {
+        reject(err)
+      })
+    }
+  })
+}
