@@ -17,3 +17,14 @@ export function toString(num: number): string {
 
   return res.reverse().join('')
 }
+
+// 驼峰转-
+// str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase(); // helloWorld => hello-world
+
+/**
+ * -转驼峰
+ *  str.replace(/-([a-z])/g, function(match, group1) {
+      return group1.toUpperCase();
+    });
+// hello-world => helloWorld
+*/

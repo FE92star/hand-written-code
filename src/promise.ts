@@ -96,6 +96,44 @@ Promise._all = (iterObj) => {
   })
 }
 
+/**
+ * @param {Array<Promise>} iterList
+*/
+// @ts-ignore
+Promise._all = (iterList) => {
+  // 1. iterObj 必须是一个可迭代对象, 否则, 无法正常进行则抛出错误
+  if (!(typeof iterList === "object" && iterList !== null && typeof iterList[Symbol.iterator] === "function")) {
+    throw new TypeError(`${iterList} is not iterable`);
+  }
+
+  const promiseList = [...iterList]
+  const promiseLen = promiseList.length
+
+  return new Promise((resolve, reject) => {
+    let count = 0
+
+    promiseList.forEach(async (item, index) => {
+      // 传入一个空数组，返回一个空数组
+      if (promiseLen === 0) return resolve([])
+      // 用于存储promise返回的结果
+      const res = new Array(promiseLen)
+      // 将参数的对象Promise化
+      const newItem = Promise.resolve(item)
+
+      try {
+        const result = await newItem
+        res[index] = result
+
+        if (++count === promiseLen) {
+          resolve(res)
+        }
+      } catch (error) {
+        reject(error)
+      }
+    })
+  })
+}
+
 // @ts-ignore
 Promise._race = (arr) => {
   return new Promise((resolve, reject) => {
@@ -106,5 +144,34 @@ Promise._race = (arr) => {
         reject(err)
       })
     }
+  })
+}
+
+// @ts-ignore
+Promise._absort = (proIns, timeDelay = 5000) => {
+  const rejectPromise = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject('超时')
+    }, timeDelay)
+  })
+
+  return Promise.race([rejectPromise(), proIns])
+}
+
+// @ts-ignore
+Promise._resolve = (value) => {
+  // 1. 如果calue是promise，直接返回即可
+  if (value instanceof Promise) return value
+
+  // 2. 如果calue是thenable对象，则包装成promise对象返回
+  if (value && value.then && typeof value === 'function') {
+    return new Promise((resolve, reject) => {
+      value.then(resolve, reject)
+    })
+  }
+
+  // 3. value是其他值
+  return new Promise((resolve, reject) => {
+    resolve(value)
   })
 }
